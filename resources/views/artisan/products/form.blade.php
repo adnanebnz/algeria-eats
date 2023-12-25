@@ -11,7 +11,7 @@
 
                 <div class="mt-10 flex flex-col items-center justify-center gap-14">
                     <div class="flex flex-col gap-5 w-full">
-                        <input type="hidden" value="{{ auth()->user()->id }}" name="user_id" />
+                        <input type="hidden" value="{{ auth()->user()->id }}" name="artisan_id" />
                         <x-input name="nom" label="Nom" :value="$product->nom" />
                         <x-textarea name="description" label="Description">{{ $product->description }}</x-textarea>
                     </div>
