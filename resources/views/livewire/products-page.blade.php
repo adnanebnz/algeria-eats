@@ -107,7 +107,7 @@
                     </div>
                 </div>
                 <div>
-                    <div class="grid grid-cols-1 gap-8 mt-8 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">
+                    <div class="grid grid-cols-1 gap-8 mt-8 md:grid-cols-3 lg:grid-cols-4">
                         @forelse ($products as $product)
                             <a href="{{ route('product.show', $product) }}"
                                 class="relative block overflow-hidden shadow-lg border">

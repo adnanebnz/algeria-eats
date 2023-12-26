@@ -47,7 +47,7 @@ class ProductsPage extends Component
             )
                 ->filters($this->filters)
                 ->orderBy('prix', $this->orderDirection)
-                ->paginate(10),
+                ->paginate(8),
         ]);
     }
 
