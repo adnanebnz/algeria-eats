@@ -15,3 +15,8 @@ Route::get('/profile/{user}', [\App\Http\Controllers\Api\Profile\ProfileControll
 Route::put('/profile/{user}', [\App\Http\Controllers\Api\Profile\ProfileController::class, 'update']);
 Route::delete('/profile/{user}', [\App\Http\Controllers\Api\Profile\ProfileController::class, 'destroy']);
 //ARTISAN SECTION
+
+//PRODUCTS SECTION
+Route::get('/products', [\App\Http\Controllers\Api\ProductController::class, 'index']);
+Route::get('/products/featured', [\App\Http\Controllers\Api\ProductController::class, 'getFeaturedProducts']);
+Route::get('/products/{product}', [\App\Http\Controllers\Api\ProductController::class, 'show']);
