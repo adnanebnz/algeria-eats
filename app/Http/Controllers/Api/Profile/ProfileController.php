@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers\Api\Profile;
 
-use AnouarTouati\AlgerianCitiesLaravel\Facades\AlgerianCitiesFacade;
 use App\Http\Controllers\Controller;
 use App\Models\Product;
 use App\Models\User;
@@ -20,7 +19,6 @@ class ProfileController extends Controller
 
     public function index(User $user)
     {
-        $wilayas = AlgerianCitiesFacade::getAllWilayas();
         if ($user->isArtisan()) {
             $artisanProducts = Product::where('artisan_id', $user->id)->get();
             $similarArtisans = User::where('id', '!=', $user->id)
@@ -42,7 +40,6 @@ class ProfileController extends Controller
 
         return response()->json([
             'user' => $user,
-            'wilayas' => $wilayas,
             'artisanProducts' => $artisanProducts ?? null,
             'similarArtisans' => $similarArtisans ?? null,
             'similarDeliveryMen' => $similarDeliveryMen ?? null,

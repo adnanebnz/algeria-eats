@@ -17,7 +17,7 @@ class ProductController extends Controller
     public function show(Product $product)
     {
         return response()->json([
-            'product' => $product->with(['artisan.user'])->first(),
+            'product' => $product->with(['artisan.user', 'reviews', 'reviews.user'])->first(),
         ]);
     }
 
