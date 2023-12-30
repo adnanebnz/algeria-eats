@@ -10,21 +10,21 @@ class ProductController extends Controller
     public function index()
     {
         return response()->json([
-            'products' => Product::all(),
+            'products' => Product::with(['artisan.user'])->get(),
         ]);
     }
 
     public function show(Product $product)
     {
         return response()->json([
-            'product' => $product,
+            'product' => $product->with(['artisan.user'])->first(),
         ]);
     }
 
     public function getFeaturedProducts()
     {
         return response()->json([
-            'products' => Product::where('rating', '>=', 3)->get(),
+            'products' => Product::where('rating', '>=', 3)->with(['artisan.user'])->get(),
         ]);
     }
 }
