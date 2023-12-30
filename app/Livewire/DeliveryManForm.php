@@ -5,6 +5,7 @@ namespace App\Livewire;
 use AnouarTouati\AlgerianCitiesLaravel\Facades\AlgerianCitiesFacade;
 use App\Models\User;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
 use Livewire\Component;
 use Livewire\WithFileUploads;
 use RealRashid\SweetAlert\Facades\Alert;
@@ -68,8 +69,17 @@ class DeliveryManForm extends Component
             ]);
 
             if ($this->image) {
-                $imagePath = $this->image->store('profile_images', 'public');
-                $user->update(['image' => $imagePath]);
+                $filename =
+                    'image_'.
+                    uniqid().
+                    '.'.
+                    $this->image->getClientOriginalExtension();
+                Storage::disk('public')->put(
+                    $filename,
+                    file_get_contents($this->image->getRealPath())
+                );
+                $uploadedFileUrl = Storage::disk('public')->url($filename);
+                $user->update(['image' => $uploadedFileUrl]);
             }
 
             $user->deliveryMan()->create([

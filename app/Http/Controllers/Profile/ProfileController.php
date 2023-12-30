@@ -99,12 +99,22 @@ class ProfileController extends Controller
 
         if ($request->hasFile('image')) {
             if ($user->image) {
-                // THE IMAGE IS IN public disk in profile_images folder
-                Storage::disk('public')->delete($user->image);
+                $imagePath = str_replace('/storage', '', $user->image);
+                Storage::disk('public')->delete($imagePath);
             }
+
             $image = $request->file('image');
-            $imagePath = $image->store('profile_images', 'public');
-            $user->update(['image' => $imagePath]);
+            $filename =
+                'image_'.
+                uniqid().
+                '.'.
+                $image->getClientOriginalExtension();
+            Storage::disk('public')->put(
+                $filename,
+                file_get_contents($image->getRealPath())
+            );
+            $uploadedFileUrl = Storage::disk('public')->url($filename);
+            $user->update(['image' => $uploadedFileUrl]);
         }
 
         Alert::success('Profil mis à jour !', 'Votre profil a été mis à jour avec succès !');
