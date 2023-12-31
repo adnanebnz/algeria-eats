@@ -72,7 +72,7 @@
                             <tbody>
                                 @forelse ($products as $product)
                                     <tr>
-                                        <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
+                                        <td class="px-5 py-5  bg-white text-sm">
                                             <div class="flex items-center">
                                                 <div class="flex-shrink-0 w-10 h-10">
                                                     <img class="w-full h-full rounded-md border"
@@ -85,20 +85,20 @@
                                                 </div>
                                             </div>
                                         </td>
-                                        <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
+                                        <td class="px-5 py-5  bg-white text-sm">
                                             <p class="text-gray-900 whitespace-no-wrap">{{ $product->prix }} DA</p>
                                         </td>
-                                        <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
+                                        <td class="px-5 py-5  bg-white text-sm">
                                             <p class="text-gray-900 whitespace-no-wrap">
                                                 {{ $product->categorie === 'sucree' ? 'Sucrée' : 'Salée' }}
                                             </p>
                                         </td>
-                                        <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
+                                        <td class="px-5 py-5  bg-white text-sm">
                                             {{ $product->created_at->format('d/m/Y') }}
                                         </td>
 
                                         <td
-                                            class="flex items-center justify-center gap-3 px-5 py-5 mt-2 border-b border-gray-200 bg-white text-sm">
+                                            class="flex items-center justify-center gap-3 px-5 py-5 mt-2  bg-white text-sm">
                                             <a data-tooltip-target="tooltip-see"
                                                 href="{{ route('admin.products.show', ['product' => $product]) }}"
                                                 class="border border-solid border-gray-400  p-1 rounded-md hover:bg-blue-500 hover:text-white hover:border-transparent">

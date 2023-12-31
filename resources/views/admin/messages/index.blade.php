@@ -32,7 +32,7 @@
                                 <tbody>
                                     @forelse ($messages as $message)
                                         <tr>
-                                            <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
+                                            <td class="px-5 py-5  bg-white text-sm">
                                                 <div class="flex items-center">
                                                     <div class="flex-shrink-0 w-10 h-10">
                                                         <img class="w-full h-full rounded-full border"
@@ -46,10 +46,10 @@
                                                     </div>
                                                 </div>
                                             </td>
-                                            <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
+                                            <td class="px-5 py-5  bg-white text-sm">
                                                 <p class="text-gray-900 whitespace-no-wrap">{{ $message->email }}</p>
                                             </td>
-                                            <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
+                                            <td class="px-5 py-5  bg-white text-sm">
                                                 <p class="text-gray-900 whitespace-no-wrap">
                                                     {{ $message->created_at->format('d/m/Y') }}
                                                 </p>

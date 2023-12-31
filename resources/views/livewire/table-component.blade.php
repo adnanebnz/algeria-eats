@@ -32,19 +32,19 @@
         <tbody>
             @forelse ($orders as $order)
                 <tr>
-                    <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
+                    <td class="px-5 py-5  bg-white text-sm">
                         {{ $order->id }}
                     </td>
 
-                    <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
+                    <td class="px-5 py-5  bg-white text-sm">
                         {{ $order->buyer->getFullName() }}
                     </td>
-                    <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
+                    <td class="px-5 py-5  bg-white text-sm">
                         {{ $order->buyer->email }}
-                    <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
+                    <td class="px-5 py-5  bg-white text-sm">
                         {{ $order->buyer->num_telephone }}
                     </td>
-                    <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
+                    <td class="px-5 py-5  bg-white text-sm">
                         {{ $order->orderItems->where('product_id', $product->id)->first()->quantity }}
                     </td>
                     <td class="px-5 py-5 bg-white text-sm flex items-center justify-center gap-3 mt-1">

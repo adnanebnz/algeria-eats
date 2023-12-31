@@ -79,7 +79,7 @@
                                 <tbody>
                                     @forelse ($users as $user)
                                         <tr>
-                                            <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
+                                            <td class="px-5 py-5  bg-white text-sm">
                                                 <div class="flex items-center">
                                                     <div class="flex-shrink-0 w-10 h-10">
                                                         <img class="w-full h-full rounded-full border"
@@ -92,15 +92,15 @@
                                                     </div>
                                                 </div>
                                             </td>
-                                            <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
+                                            <td class="px-5 py-5  bg-white text-sm">
                                                 <p class="text-gray-900 whitespace-no-wrap">{{ $user->email }}</p>
                                             </td>
-                                            <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
+                                            <td class="px-5 py-5  bg-white text-sm">
                                                 <p class="text-gray-900 whitespace-no-wrap">
                                                     {{ $user->created_at->format('d/m/Y') }}
                                                 </p>
                                             </td>
-                                            <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
+                                            <td class="px-5 py-5  bg-white text-sm">
                                                 @if ($user->isAdmin())
                                                     <span
                                                         class="relative inline-block px-3 py-1 font-semibold text-red-900 leading-tight">
@@ -231,8 +231,7 @@
                                         </tr>
                                     @empty
                                         <tr>
-                                            <td colspan="5"
-                                                class="px-5 py-5 border-b border-gray-200 bg-white text-sm text-center">
+                                            <td colspan="5" class="px-5 py-5  bg-white text-sm text-center">
                                                 Aucun utilisateur trouvé
                                             </td>
                                         </tr>

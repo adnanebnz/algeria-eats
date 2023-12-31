@@ -137,7 +137,7 @@
                                             {{ $delivery->created_at->format('d/m/Y') }}
                                         </td>
                                         <td
-                                            class="flex items-center justify-center gap-3 px-5 py-5 border-b border-gray-200 mt-1.5 bg-white text-sm">
+                                            class="flex items-center justify-center gap-3 px-5 py-5  mt-1.5 bg-white text-sm">
                                             @if ($delivery->status == 'not_started')
                                                 <form method="POST"
                                                     action="{{ route('delivery.accept', ['delivery' => $delivery]) }}">

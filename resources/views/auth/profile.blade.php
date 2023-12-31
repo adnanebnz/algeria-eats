@@ -11,7 +11,7 @@
                         </div>
                         <div class="flex gap-2">
                             <img src="{{ $user->image ? (str_starts_with($user->image, 'http') ? $user->image : asset('storage/' . $user->image)) : asset('assets/user.png') }}"
-                                alt="image" class="h-14 w-14 rounded-full">
+                                alt="image" class="h-14 rounded-full object-cover">
                             <div>
                                 <h1 class="text-gray-900 font-semibold text-md">{{ $user->getFullName() }}
                                 </h1>
@@ -92,7 +92,7 @@
                                         @foreach ($similarArtisans as $similarArtisan)
                                             @if ($similarArtisan->id !== $user->id)
                                                 <div class="text-center my-2 text-xs">
-                                                    <img class="h-10 w-10 rounded-full mx-auto mb-1"
+                                                    <img class="h-10 object-cover rounded-full mx-auto mb-1"
                                                         src="{{ $similarArtisan->image ? (str_starts_with($similarArtisan->image, 'http') ? $similarArtisan->image : asset('storage/' . $similarArtisan->image)) : asset('assets/user.png') }}"
                                                         alt="">
                                                     <a href="{{ route('profile', $similarArtisan->id) }}"
@@ -106,7 +106,7 @@
                                         @foreach ($similarDeliveryMen as $similarDeliveryMan)
                                             @if ($similarDeliveryMan->id !== $user->id)
                                                 <div class="text-center my-2 text-xs">
-                                                    <img class="h-10 w-10 rounded-full mx-auto mb-1"
+                                                    <img class="h-10 object-cover rounded-full mx-auto mb-1"
                                                         src="{{ $similarDeliveryMan->image ? (str_starts_with($similarDeliveryMan->image, 'http') ? $similarDeliveryMan->image : asset('storage/' . $similarDeliveryMan->image)) : asset('assets/user.png') }}"
                                                         alt="">
                                                     <a href="{{ route('profile', $similarDeliveryMan->id) }}"
@@ -371,7 +371,7 @@
                                 <div class="space-y-4 text-center">
                                     <template x-if="image">
                                         <img x-bind:src="image" alt="Uploaded Image"
-                                            class="h-32 mx-auto mb-4 rounded-full border">
+                                            class="h-32 object-cover mx-auto mb-4 rounded-full border">
                                     </template>
                                     <div class="flex flex-col gap-1 items-center justify-center">
                                         <template x-if="!image">

@@ -135,7 +135,7 @@
                                                 </span>
                                             @endif
                                         </td>
-                                        <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
+                                        <td class="px-5 py-5  bg-white text-sm">
                                             <div class="flex items-center justify-center gap-3">
                                                 <a data-tooltip-target="tooltip-see"
                                                     href="{{ route('artisan.orders.show', ['order' => $order]) }}"
