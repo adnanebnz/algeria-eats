@@ -30,7 +30,7 @@ class Artisan extends Authenticatable
 
     public function products()
     {
-        return $this->hasMany(Product::class, 'user_id');
+        return $this->hasMany(Product::class, 'artisan_id');
     }
 
     public function orders()

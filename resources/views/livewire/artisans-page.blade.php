@@ -79,7 +79,7 @@
                     <div class="grid grid-cols-1 gap-8 mt-8 md:grid-cols-3 lg:grid-cols-3">
                         @forelse ($artisans as $artisan)
                             <a href="{{ route('profile', $artisan->user->id) }}"
-                                class="relative block overflow-hidden shadow-lg border p-3 hover:opacity-80">
+                                class="relative block overflow-hidden shadow-lg border p-3 hover:opacity-80 rounded-xl">
                                 <div class="flex flex-row items-center gap-2">
                                     <img src="{{ $artisan->user->image ? (str_starts_with($artisan->user->image, 'http') ? $artisan->user->image : asset('storage/' . $artisan->user->image)) : asset('assets/user.png') }}"
                                         class="object-cover w-12 h-12 rounded-full border"

@@ -137,7 +137,7 @@
                 <div class="bg-white shadow-md rounded-lg p-4 sm:p-6 xl:p-8 ">
                     <h3 class="text-lg font-bold text-gray-800 mb-4">Répartition des revenus par catégorie</h3>
                     <div>
-                        <canvas id="revenueBreakdownChart" height="400"></canvas>
+                        <canvas id="revenueBreakdownChart" height="300"></canvas>
                     </div>
                 </div>
                 <div class="bg-white shadow rounded-lg p-4 sm:p-6 xl:p-8">
