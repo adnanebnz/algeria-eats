@@ -41,6 +41,7 @@ class ProductsPage extends Component
             'products' => Product::select(
                 'id',
                 'nom',
+                'rating',
                 'prix',
                 'categorie',
                 'images'

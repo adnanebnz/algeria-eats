@@ -121,9 +121,7 @@
                                     </span>
 
                                     <h3 class="mt-4 font-medium text-gray-900">{{ $product->nom }}</h3>
-
                                     <x-star-rating :rating="$product->rating" />
-
                                     <p class="mt-1.5 text-md text-gray-800">{{ $product->prix }} DA</p>
 
                                     <form class="mt-4">
