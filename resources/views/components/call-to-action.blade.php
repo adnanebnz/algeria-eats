@@ -22,8 +22,8 @@
                 <div class="mt-10 flex items-center justify-center gap-x-6 lg:justify-start">
                     <a href="{{ route('login') }}"
                         class="rounded-md bg-orange-500 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-orange-600 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white">Commencer</a>
-                    <a href="#" class="text-sm font-semibold leading-6 text-gray-800">Plus de détails <span
-                            aria-hidden="true">→</span></a>
+                    <a href="{{ route('faq') }}" class="text-sm font-semibold leading-6 text-gray-800">Plus de détails
+                        <span aria-hidden="true">→</span></a>
                 </div>
             </div>
             <div class="relative mt-16 h-80 lg:mt-8">
