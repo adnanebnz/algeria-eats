@@ -223,7 +223,7 @@
     <div class="container mx-auto px-4">
         <div class="flex text-left lg:text-left">
             <div class="w-full lg:w-6/12 px-4">
-                <img src="{{ asset('assets/LOGO.png') }}" class="md:h-14 h-10" alt="logo" />
+                <img src="{{ asset('assets/LOGO.png') }}" class="md:h-14 h-8" alt="logo" />
                 <div class="mt-6 lg:mb-0 mb-6">
                 </div>
             </div>

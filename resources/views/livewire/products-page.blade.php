@@ -122,7 +122,9 @@
 
                                     <h3 class="mt-4 font-medium text-gray-900">{{ $product->nom }}</h3>
 
-                                    <p class="mt-1.5 text-sm text-gray-700">{{ $product->prix }} DA</p>
+                                    <x-star-rating :rating="$product->rating" />
+
+                                    <p class="mt-1.5 text-md text-gray-800">{{ $product->prix }} DA</p>
 
                                     <form class="mt-4">
                                         <button wire:click.prevent="store({{ $product->id }})"
