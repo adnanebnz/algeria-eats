@@ -209,9 +209,34 @@ class AdminController extends Controller
         return redirect()->route('admin.messages.index');
     }
 
-    public function productsIndex()
+    public function productsIndex(Request $request)
     {
-        $products = Product::paginate(10);
+
+        $query = Product::select(
+            'id',
+            'images',
+            'nom',
+            'prix',
+            'categorie',
+            'created_at'
+        );
+
+        // Filtering by search term
+        if ($request->has('search')) {
+            $query->where('nom', 'like', '%'.request('search').'%');
+        }
+
+        // Filtering by date
+        if ($request->has('date')) {
+            $date = $request->input('date');
+            if ($date == 'nouveau') {
+                $query->orderBy('created_at', 'desc');
+            } elseif ($date == 'ancien') {
+                $query->orderBy('created_at', 'asc');
+            }
+        }
+
+        $products = $query->paginate(10);
 
         return view('admin.products.index', ['products' => $products]);
     }

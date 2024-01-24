@@ -18,8 +18,7 @@
                             Des questions? Regardez ici
                         </h2>
                         <p class="text-base text-body-color">
-                            There are many variations of passages of Lorem Ipsum available
-                            but the majority have suffered alteration in some form.
+                            Explorez ci-dessous une sélection étendue des questions les plus pertinentes agrémentées.
                         </p>
                     </div>
                 </div>
