@@ -22,11 +22,12 @@
                     class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
                     Quantité
                 </th>
-
-                <th
-                    class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-xs font-semibold text-gray-600 uppercase tracking-wider text-center">
-                    Actions
-                </th>
+                @if (auth()->user()->artisan)
+                    <th
+                        class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-xs font-semibold text-gray-600 uppercase tracking-wider text-center">
+                        Actions
+                    </th>
+                @endif
             </tr>
         </thead>
         <tbody>
@@ -48,8 +49,10 @@
                         {{ $order->orderItems->where('product_id', $product->id)->first()->quantity }}
                     </td>
                     <td class="px-5 py-5 bg-white text-sm flex items-center justify-center gap-3 mt-1">
-                        <a href="{{ route('artisan.orders.show', ['order' => $order]) }}"
-                            class="bg-orange-700 text-white px-4 py-2 rounded-md hover:bg-orange-500">Voir</a>
+                        @if (auth()->user()->artisan)
+                            <a href="{{ route('artisan.orders.show', ['order' => $order]) }}"
+                                class="bg-orange-700 text-white px-4 py-2 rounded-md hover:bg-orange-500">Voir</a>
+                        @endif
                     </td>
                 </tr>
             @empty
