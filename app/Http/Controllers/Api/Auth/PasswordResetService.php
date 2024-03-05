@@ -11,14 +11,18 @@ class PasswordResetService extends Controller
 {
     public function sendResetLink(Request $request): JsonResponse
     {
-        $request->validate(['email' => 'required|email']);
+        try {
+            $request->validate(['email' => 'required|email']);
 
-        $status = Password::sendResetLink($request->only('email'));
+            $status = Password::sendResetLink($request->only('email'));
 
-        if ($status === Password::RESET_LINK_SENT) {
-            return response()->json(['message' => __($status)], 200);
-        } else {
-            return response()->json(['error' => __($status)], 400);
+            if ($status === Password::RESET_LINK_SENT) {
+                return response()->json(['message' => __($status)], 200);
+            } else {
+                return response()->json(['error' => __($status)], 400);
+            }
+        } catch (\Exception $e) {
+            return response()->json(['error' => $e->getMessage()], 400);
         }
     }
 }

@@ -17,33 +17,58 @@ class LoginController extends Controller
 
     public function login(Request $request)
     {
-        $credentials = $request->only('email', 'password');
+        try {
+            $credentials = $request->only('email', 'password');
 
-        if (Auth::attempt($credentials)) {
-            $token = $request->user()->createToken('api-token')->plainTextToken;
+            if (Auth::attempt($credentials)) {
+                $token = $request->user()->createToken('api-token')->plainTextToken;
 
-            return response()->json(['token' => $token, 'user' => $request->user()]);
+                return response()->json(['token' => $token, 'user' => $request->user()]);
+            }
+
+            return response()->json(['error' => 'Invalid credentials'], 401);
+        } catch (\Exception $e) {
+            return response()->json(['error' => $e->getMessage()], 400);
         }
-
-        return response()->json(['error' => 'Invalid credentials'], 401);
     }
 
     public function logout(Request $request)
     {
-        $request->user()->tokens()->delete();
+        try {
+            $request->user()->tokens()->delete();
 
-        return response()->json(['message' => 'Logged out']);
+            return response()->json(['message' => 'Logged out']);
+        } catch (\Exception $e) {
+            return response()->json(['error' => $e->getMessage()], 400);
+        }
     }
 
     public function me(Request $request)
     {
-        return response()->json(['user' => $request->user()]);
+        try {
+            if (! $request->user()) {
+                return response()->json(['error' => 'Unauthenticated'], 401);
+            } else {
+                return response()->json(['user' => $request->user()]);
+            }
+        } catch (\Exception $e) {
+            return response()->json(['error' => $e->getMessage()], 400);
+        }
     }
 
     public function refresh(Request $request)
     {
-        $token = $request->user()->createToken('api-token')->plainTextToken;
+        try {
+            if (! $request->user()) {
+                return response()->json(['error' => 'Unauthenticated'], 401);
 
-        return response()->json(['token' => $token]);
+            } else {
+                $token = $request->user()->createToken('api-token')->plainTextToken;
+
+                return response()->json(['token' => $token]);
+            }
+        } catch (\Exception $e) {
+            return response()->json(['error' => $e->getMessage()], 400);
+        }
     }
 }

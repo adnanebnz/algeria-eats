@@ -11,97 +11,93 @@ use Illuminate\Http\Request;
 
 class RegisterController extends Controller
 {
-    public function registerConsymer(Request $request)
+    public function registerConsumer(Request $request)
     {
-        $data = $request->validate([
-            'nom' => 'required|string',
-            'prenom' => 'required|string',
-            'email' => 'required|email|unique:users',
-            'password' => 'required|min:3|confirmed',
-            'password_confirmation' => 'required|min:3|same:password',
-            'adresse' => 'required|string',
-            'num_telephone' => 'required',
-            'wilaya' => 'required|string',
-            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:4096',
-        ]);
-        $user = User::create($data);
-        Consumer::create([
-            'user_id' => $user->id,
-        ]);
+        try {
+            $data = $request->validate([
+                'nom' => 'required|string',
+                'prenom' => 'required|string',
+                'email' => 'required|email|unique:users',
+                'password' => 'required|min:3|confirmed',
+                'password_confirmation' => 'required|min:3|same:password',
+                'adresse' => 'required|string',
+                'num_telephone' => 'required',
+                'wilaya' => 'required|string',
+                'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:4096',
+            ]);
 
-        return response()->json(['message' => 'User created successfully'], 201);
+            $user = User::create($data);
+            Consumer::create([
+                'user_id' => $user->id,
+            ]);
+
+            return response()->json(['message' => 'User created successfully'], 201);
+        } catch (\Exception $e) {
+            return response()->json(['error' => $e->getMessage()], 400);
+        }
     }
 
     public function registerDeliveryMan(Request $request)
     {
-        $data = $request->validate([
-            'nom' => 'required|string',
-            'prenom' => 'required|string',
-            'email' => 'required|email|unique:users',
-            'password' => 'required|min:3|confirmed',
-            'password_confirmation' => 'required|min:3|same:password',
-            'adresse' => 'required|string',
-            'num_telephone' => 'required',
-            'wilaya' => 'required|string',
-            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:4096',
-            'est_disponible' => 'required',
-        ]);
-        $user = User::create([
-            'nom' => $data['nom'],
-            'prenom' => $data['prenom'],
-            'email' => $data['email'],
-            'password' => $data['password'],
-            'adresse' => $data['adresse'],
-            'num_telephone' => $data['num_telephone'],
-            'wilaya' => $data['wilaya'],
-            'image' => $data['image'],
-        ]);
+        try {
+            $data = $request->validate([
+                'nom' => 'required|string',
+                'prenom' => 'required|string',
+                'email' => 'required|email|unique:users',
+                'password' => 'required|min:3|confirmed',
+                'password_confirmation' => 'required|min:3|same:password',
+                'adresse' => 'required|string',
+                'num_telephone' => 'required',
+                'wilaya' => 'required|string',
+                'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:4096',
+                'est_disponible' => 'required',
+            ]);
 
-        DeliveryMan::create([
-            'user_id' => $user->id,
-            'est_disponible' => $data['est_disponible'],
-        ]);
+            $user = User::create($data);
 
-        return response()->json(['message' => 'User created successfully'], 201);
+            DeliveryMan::create([
+                'user_id' => $user->id,
+                'est_disponible' => $data['est_disponible'],
+            ]);
+
+            return response()->json(['message' => 'User created successfully'], 201);
+        } catch (\Exception $e) {
+            return response()->json(['error' => $e->getMessage()], 400);
+        }
     }
 
     public function registerArtisan(Request $request)
     {
-        $data = $request->validate([
-            'nom' => 'required|string',
-            'prenom' => 'required|string',
-            'email' => 'required|email|unique:users',
-            'password' => 'required|min:3|confirmed',
-            'password_confirmation' => 'required|min:3|same:password',
-            'adresse' => 'required|string',
-            'num_telephone' => 'required',
-            'wilaya' => 'required|string',
-            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:4096',
-            'desc_entreprise' => 'required',
-            'heure_ouverture' => 'required',
-            'heure_fermeture' => 'required',
-            'type_service' => 'required',
-        ]);
+        try {
+            $data = $request->validate([
+                'nom' => 'required|string',
+                'prenom' => 'required|string',
+                'email' => 'required|email|unique:users',
+                'password' => 'required|min:3|confirmed',
+                'password_confirmation' => 'required|min:3|same:password',
+                'adresse' => 'required|string',
+                'num_telephone' => 'required',
+                'wilaya' => 'required|string',
+                'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:4096',
+                'desc_entreprise' => 'required',
+                'heure_ouverture' => 'required',
+                'heure_fermeture' => 'required',
+                'type_service' => 'required',
+            ]);
 
-        $user = User::create([
-            'nom' => $data['nom'],
-            'prenom' => $data['prenom'],
-            'email' => $data['email'],
-            'password' => $data['password'],
-            'adresse' => $data['adresse'],
-            'num_telephone' => $data['num_telephone'],
-            'wilaya' => $data['wilaya'],
-            'image' => $data['image'],
-        ]);
+            $user = User::create($data);
 
-        Artisan::create([
-            'user_id' => $user->id,
-            'desc_entreprise' => $data['desc_entreprise'],
-            'heure_ouverture' => $data['heure_ouverture'],
-            'heure_fermeture' => $data['heure_fermeture'],
-            'type_service' => $data['type_service'],
-        ]);
+            Artisan::create([
+                'user_id' => $user->id,
+                'desc_entreprise' => $data['desc_entreprise'],
+                'heure_ouverture' => $data['heure_ouverture'],
+                'heure_fermeture' => $data['heure_fermeture'],
+                'type_service' => $data['type_service'],
+            ]);
 
-        return response()->json(['message' => 'User created successfully'], 201);
+            return response()->json(['message' => 'User created successfully'], 201);
+        } catch (\Exception $e) {
+            return response()->json(['error' => $e->getMessage()], 400);
+        }
     }
 }
