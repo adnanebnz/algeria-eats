@@ -46,7 +46,7 @@ class LoginController extends Controller
     public function me(Request $request)
     {
         try {
-            if (! $request->user()) {
+            if (!$request->user()) {
                 return response()->json(['error' => 'Unauthenticated'], 401);
             } else {
                 return response()->json(['user' => $request->user()]);
@@ -56,15 +56,18 @@ class LoginController extends Controller
         }
     }
 
+
     public function refresh(Request $request)
     {
         try {
-            if (! $request->user()) {
+            if (!$request->user()) {
                 return response()->json(['error' => 'Unauthenticated'], 401);
-
             } else {
-                $token = $request->user()->createToken('api-token')->plainTextToken;
-
+                $token = $request->user()->token();
+                if ($request->user()->token()->isExpired()) {
+                    $request->user()->tokens()->delete();
+                    $token = $request->user()->createToken('api-token')->plainTextToken;
+                }
                 return response()->json(['token' => $token]);
             }
         } catch (\Exception $e) {

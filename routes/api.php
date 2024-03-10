@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Api\ArtisansController;
 use App\Http\Controllers\Api\Auth\LoginController;
 use App\Http\Controllers\Api\Auth\RegisterController;
 use App\Http\Controllers\Api\OrderController;
@@ -13,6 +14,7 @@ Route::post('/auth/register/artisan', [RegisterController::class, 'registerArtis
 
 Route::post('/auth/login', [LoginController::class, 'login']);
 Route::post('/auth/logout', [LoginController::class, 'logout']);
+Route::get('/auth/refresh', [LoginController::class, 'refresh']);
 Route::get('/me', [LoginController::class, 'me']);
 
 // PROFILE SECTION
@@ -30,3 +32,6 @@ Route::get('/products/{product}', [ProductController::class, 'show']);
 Route::get('/orders', [OrderController::class, 'index']);
 Route::get('/orders/{order}', [OrderController::class, 'show']);
 Route::post('/orders', [OrderController::class, 'store']);
+
+//ARTISANS
+Route::get('/artisans', [ArtisansController::class, 'index']);
