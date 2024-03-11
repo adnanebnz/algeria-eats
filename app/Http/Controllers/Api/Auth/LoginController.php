@@ -22,8 +22,9 @@ class LoginController extends Controller
 
             if (Auth::attempt($credentials)) {
                 $token = $request->user()->createToken('api-token')->plainTextToken;
+                $user = Auth::user();
 
-                return response()->json(['token' => $token, 'user' => $request->user()]);
+                return response()->json(['token' => $token, 'user' => $user]);
             }
 
             return response()->json(['error' => 'Invalid credentials'], 401);
@@ -46,21 +47,22 @@ class LoginController extends Controller
     public function me(Request $request)
     {
         try {
-            if (!$request->user()) {
+            if (! $request->user()) {
                 return response()->json(['error' => 'Unauthenticated'], 401);
             } else {
-                return response()->json(['user' => $request->user()]);
+                $user = Auth::user();
+
+                return response()->json(['user' => $user]);
             }
         } catch (\Exception $e) {
             return response()->json(['error' => $e->getMessage()], 400);
         }
     }
 
-
     public function refresh(Request $request)
     {
         try {
-            if (!$request->user()) {
+            if (! $request->user()) {
                 return response()->json(['error' => 'Unauthenticated'], 401);
             } else {
                 $token = $request->user()->token();
@@ -68,6 +70,7 @@ class LoginController extends Controller
                     $request->user()->tokens()->delete();
                     $token = $request->user()->createToken('api-token')->plainTextToken;
                 }
+
                 return response()->json(['token' => $token]);
             }
         } catch (\Exception $e) {

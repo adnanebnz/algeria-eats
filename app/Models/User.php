@@ -70,7 +70,7 @@ class User extends Authenticatable implements CanResetPasswordContract
 
     public function orders()
     {
-        return $this->hasMany(Order::class);
+        return $this->hasMany(Order::class, 'buyer_id');
     }
 
     public function cart()

@@ -9,7 +9,7 @@ class ArtisansController extends Controller
 {
     public function index()
     {
-        $artisans = Artisan::with(['user', 'products', 'orders', 'reviews'])->get();
+        $artisans = Artisan::with(['user', 'products', 'reviews'])->get();
 
         return response()->json([
             'artisans' => $artisans,
