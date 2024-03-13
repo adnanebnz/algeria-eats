@@ -2,35 +2,49 @@
 
 namespace App\Http\Controllers\Api;
 
+use Illuminate\Support\Str;
+use GuzzleHttp\Client;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
 class NotificationsController extends Controller
 {
-    static public function notify($title, $body, $device_key)
+    static public function notify(Request $request)
     {
+        $device_key = $request->device_key;
+        $body = $request->body;
+        $title = $request->title;
         $url = "https://fcm.googleapis.com/fcm/send";
-        $serverKey = env('FCM_SERVER_KEY', 'sync');
-        $dataArray = [
-            "click_action" => "FLUTTER_NOTIFICATION_CLICK",
-            "status" => "done"
-        ];
+        $serverKey = env('FIREBASE_SERVER_KEY', 'sync');
+
         $data = [
-            "registration_ids" => [$device_key],
-            "notification" => [
+            "to" => $device_key,
+            "priority" => "high",
+            "data" => [
                 "title" => $title,
                 "body" => $body,
-                "sound" => "default",
-            ],
-            "data" => $dataArray,
-            "priority" => "high"
+                "content" => [
+                    "priority" => "high",
+                    "status" => "done",
+                    "id" => 100,
+                    "channelKey" => "high_importance_channel",
+                    "title" => $title,
+                    "body" => $body,
+                ],
+            ]
         ];
-        $encodedDaya = json_encode($data);
-        $headers = [
-            'Content-Type:application/json',
-            'Authorization:key=' . $serverKey
-        ];
-        $ch = curl_init();
-        curl_setopt($ch, CURLOPT_URL, $url);
+
+        $client = new Client([
+            'headers' => [
+                'Content-Type' => 'application/json',
+                'Authorization' => 'key=' . $serverKey
+            ]
+        ]);
+
+        $response = $client->post($url, [
+            'body' => json_encode($data)
+        ]);
+
+        return $response->getBody()->getContents();
     }
 }

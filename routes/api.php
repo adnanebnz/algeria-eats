@@ -3,6 +3,7 @@
 use App\Http\Controllers\Api\ArtisansController;
 use App\Http\Controllers\Api\Auth\LoginController;
 use App\Http\Controllers\Api\Auth\RegisterController;
+use App\Http\Controllers\Api\NotificationsController;
 use App\Http\Controllers\Api\OrderController;
 use App\Http\Controllers\Api\ProductController;
 use App\Http\Controllers\Api\Profile\ProfileController;
@@ -35,3 +36,7 @@ Route::post('/orders', [OrderController::class, 'store']);
 
 //ARTISANS
 Route::get('/artisans', [ArtisansController::class, 'index']);
+
+
+//NOTIFICATIONS
+Route::post('/notify', [NotificationsController::class, 'notify']);
