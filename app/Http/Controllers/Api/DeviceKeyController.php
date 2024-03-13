@@ -17,14 +17,23 @@ class DeviceKeyController extends Controller
                 'user_id' => 'integer',
             ]);
 
-            DeviceKey::create([
-                'fcm_key' => $data['fcm_key'],
-                'user_id' => $data['user_id'],
-            ]);
+            //CHECK IF THE SAME KEY ALREADY EXISTS IF SO WE WONT SAVE IT AGAIN
+            $key = DeviceKey::where('fcm_key', '=', $data['fcm_key']);
 
-            return response()->json([
-                'message' => 'Device key saved successfully',
-            ]);
+            if ($key) {
+                return response()->json([
+                    'message' => 'Device key already saved',
+                ]);
+            } else {
+                DeviceKey::create([
+                    'fcm_key' => $data['fcm_key'],
+                    'user_id' => $data['user_id'],
+                ]);
+
+                return response()->json([
+                    'message' => 'Device key saved successfully',
+                ]);
+            }
         } catch (Exception $e) {
             return response()->json([
                 'error' => $e->getMessage(),
