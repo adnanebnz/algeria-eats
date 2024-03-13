@@ -48,6 +48,11 @@ class User extends Authenticatable implements CanResetPasswordContract
         'password' => 'hashed',
     ];
 
+    public function deviceKeys()
+    {
+        return $this->hasMany(DeviceKey::class, 'user_id');
+    }
+
     public function consumer()
     {
         return $this->hasOne(Consumer::class);

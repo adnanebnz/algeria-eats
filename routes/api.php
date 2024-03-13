@@ -3,6 +3,7 @@
 use App\Http\Controllers\Api\ArtisansController;
 use App\Http\Controllers\Api\Auth\LoginController;
 use App\Http\Controllers\Api\Auth\RegisterController;
+use App\Http\Controllers\Api\DeviceKeyController;
 use App\Http\Controllers\Api\NotificationsController;
 use App\Http\Controllers\Api\OrderController;
 use App\Http\Controllers\Api\ProductController;
@@ -33,10 +34,13 @@ Route::get('/products/{product}', [ProductController::class, 'show']);
 Route::get('/orders', [OrderController::class, 'index']);
 Route::get('/orders/{order}', [OrderController::class, 'show']);
 Route::post('/orders', [OrderController::class, 'store']);
+Route::put('/orders/{order}', [ArtisansController::class, 'setOrderStatus']);
 
 //ARTISANS
 Route::get('/artisans', [ArtisansController::class, 'index']);
 
-
 //NOTIFICATIONS
 Route::post('/notify', [NotificationsController::class, 'notify']);
+
+//device key
+Route::post('/device-key', [DeviceKeyController::class, 'save']);
