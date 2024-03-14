@@ -6,15 +6,12 @@ use App\Http\Controllers\Controller;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Kreait\Laravel\Firebase\Facades\Firebase;
 
 class SocialAuthController extends Controller
 {
-    private $firebaseAuth;
 
     public function __construct()
     {
-        $this->firebaseAuth = Firebase::auth();
     }
 
     public function loginWithGoogle(Request $request)
