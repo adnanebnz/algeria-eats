@@ -8,6 +8,7 @@
         "php": "^8.1",
         "anouar-touati/algerian-cities-laravel": "^1.2",
         "guzzlehttp/guzzle": "^7.2",
+        "kreait/laravel-firebase": "^5.8",
         "laravel/framework": "^10.10",
         "laravel/sanctum": "^3.3",
         "laravel/tinker": "^2.8",
@@ -17,6 +18,7 @@
         "spatie/laravel-analytics": "^5.1"
     },
     "require-dev": {
+        "barryvdh/laravel-ide-helper": "^3.0",
         "fakerphp/faker": "^1.9.1",
         "laravel-lang/common": "^5.3",
         "laravel/pint": "^1.13",

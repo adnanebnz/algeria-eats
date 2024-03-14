@@ -27,6 +27,7 @@ class User extends Authenticatable implements CanResetPasswordContract
         'email',
         'image',
         'password',
+        'google_id',
     ];
 
     /**

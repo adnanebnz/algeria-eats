@@ -3,6 +3,7 @@
 use App\Http\Controllers\Api\ArtisansController;
 use App\Http\Controllers\Api\Auth\LoginController;
 use App\Http\Controllers\Api\Auth\RegisterController;
+use App\Http\Controllers\Api\Auth\SocialAuthController;
 use App\Http\Controllers\Api\DeviceKeyController;
 use App\Http\Controllers\Api\NotificationsController;
 use App\Http\Controllers\Api\OrderController;
@@ -44,3 +45,6 @@ Route::post('/notify', [NotificationsController::class, 'notify']);
 
 //device key
 Route::post('/device-key', [DeviceKeyController::class, 'save']);
+
+//FIREBASE AUTH
+Route::post('/auth/login/google', [SocialAuthController::class, 'loginWithGoogle']);
