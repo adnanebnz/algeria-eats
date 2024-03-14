@@ -24,7 +24,7 @@ class ProductController extends Controller
                 'products' => Product::filters($filters)
                     ->with(['artisan.user', 'reviews'])
                     ->orderBy('prix', $orderDirection)
-                    ->get(),
+                    ->paginate(10),
             ]);
         } catch (\Exception $e) {
             return response()->json(['error' => $e->getMessage()], 400);
@@ -46,7 +46,7 @@ class ProductController extends Controller
     {
         try {
             return response()->json([
-                'products' => Product::where('rating', '>=', 3)->with(['artisan.user', 'reviews'])->get(),
+                'products' => Product::where('rating', '>=', 3)->with(['artisan.user', 'reviews'])->limit(4)->get(),
             ]);
         } catch (\Exception $e) {
             return response()->json(['error' => $e->getMessage()], 400);
