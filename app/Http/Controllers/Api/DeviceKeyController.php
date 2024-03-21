@@ -18,9 +18,9 @@ class DeviceKeyController extends Controller
             ]);
 
             //CHECK IF THE SAME KEY ALREADY EXISTS IF SO WE WONT SAVE IT AGAIN
-            $key = DeviceKey::where('fcm_key', '=', $data['fcm_key']);
+            $key = DeviceKey::where('fcm_key', $data['fcm_key']);
 
-            if ($key) {
+            if ($key->exists()) {
                 return response()->json([
                     'message' => 'Device key already saved',
                 ]);
