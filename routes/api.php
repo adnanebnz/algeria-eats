@@ -9,6 +9,7 @@ use App\Http\Controllers\Api\NotificationsController;
 use App\Http\Controllers\Api\OrderController;
 use App\Http\Controllers\Api\ProductController;
 use App\Http\Controllers\Api\Profile\ProfileController;
+use App\Http\Controllers\Api\DeliveryManController;
 use Illuminate\Support\Facades\Route;
 
 Route::post('/auth/register/consumer', [RegisterController::class, 'registerConsumer']);
@@ -48,3 +49,13 @@ Route::post('/device-key', [DeviceKeyController::class, 'save']);
 
 //FIREBASE AUTH
 Route::post('/auth/login/google', [SocialAuthController::class, 'loginWithGoogle']);
+
+Route::put('/deliveryMan/status', [LoginController::class, 'setDeliveryManAvailability']);
+
+Route::post('/login/deliveryman', [LoginController::class, 'deliveryManLogin']);
+
+
+Route::get("/deliveries", [DeliveryManController::class, 'getDeliveries']);
+
+
+Route::get('/neirest-artisans', [ArtisansController::class, 'getNearestArtisanToUser']);

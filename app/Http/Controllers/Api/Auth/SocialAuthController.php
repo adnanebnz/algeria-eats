@@ -9,7 +9,6 @@ use Illuminate\Support\Facades\Auth;
 
 class SocialAuthController extends Controller
 {
-
     public function __construct()
     {
     }
@@ -20,7 +19,7 @@ class SocialAuthController extends Controller
 
         $user = User::where('email', $userData['email'])->first();
 
-        if (!$user) {
+        if (! $user) {
             $user = User::create([
                 'nom' => $userData['displayName'],
                 'email' => $userData['email'],

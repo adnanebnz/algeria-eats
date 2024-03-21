@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use App\Models\Artisan;
 use App\Models\Order;
+use App\Models\User;
 use Exception;
 use Illuminate\Http\Request;
 
@@ -47,5 +48,21 @@ class ArtisansController extends Controller
                 ]
             );
         }
+    }
+
+    public function getNearestArtisanToUser(Request $request)
+    {
+        $userId = $request->input('user_id');
+        $user = User::find($userId);
+
+        if (!$user) {
+            return response()->json(['error' => 'User not found'], 404);
+        }
+
+        $artisans = Artisan::filters(['artisanWilaya' => $user->wilaya])->get(6);
+
+        return response()->json([
+            'artisans' => $artisans
+        ]);
     }
 }

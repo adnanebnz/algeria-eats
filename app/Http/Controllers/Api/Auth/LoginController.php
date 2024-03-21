@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Api\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Models\DeliveryMan;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -24,10 +26,37 @@ class LoginController extends Controller
                 $token = $request->user()->createToken('api-token')->plainTextToken;
                 $user = Auth::user();
 
+                if ($user->isArtisan()) {
+                    $user->load('artisan');
+                } elseif ($user->isDeliveryMan()) {
+                    $user->load('deliveryMan');
+                }
+
                 return response()->json(['token' => $token, 'user' => $user]);
             }
 
             return response()->json(['error' => 'Invalid credentials'], 401);
+        } catch (\Exception $e) {
+            return response()->json(['error' => $e->getMessage()], 400);
+        }
+    }
+
+    public function deliveryManLogin(Request $request)
+    {
+        try {
+            $credentials = $request->only('email', 'password');
+
+            if (Auth::attempt($credentials)) {
+                $user = Auth::user();
+                if ($user->isDeliveryMan()) {
+                    $token = $request->user()->createToken('api-token')->plainTextToken;
+                    $user->load('deliveryMan');
+
+                    return response()->json(['token' => $token, 'user' => $user]);
+                }
+
+                return response()->json(['error' => 'Invalid credentials'], 401);
+            }
         } catch (\Exception $e) {
             return response()->json(['error' => $e->getMessage()], 400);
         }
@@ -52,6 +81,12 @@ class LoginController extends Controller
             } else {
                 $user = Auth::user();
 
+                if ($user->isArtisan()) {
+                    $user->load('artisan');
+                } elseif ($user->isDeliveryMan()) {
+                    $user->load('deliveryMan');
+                }
+
                 return response()->json(['user' => $user]);
             }
         } catch (\Exception $e) {
@@ -73,6 +108,22 @@ class LoginController extends Controller
 
                 return response()->json(['token' => $token]);
             }
+        } catch (\Exception $e) {
+            return response()->json(['error' => $e->getMessage()], 400);
+        }
+    }
+
+    // SET DELIVERYMAN EST_DISPONIBLE TO 0 OR 1
+    public function setDeliveryManAvailability(Request $request)
+    {
+        try {
+
+            $user = User::where('id', $request->input('user_id'))->first();
+
+            DeliveryMan::where('user_id', $user->id)
+                ->update(['est_disponible' => $request->input('est_disponible')]);
+
+            return response()->json(['user' => $user->load('deliveryMan')]);
         } catch (\Exception $e) {
             return response()->json(['error' => $e->getMessage()], 400);
         }
