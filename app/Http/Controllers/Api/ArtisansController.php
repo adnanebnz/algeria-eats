@@ -7,6 +7,7 @@ use App\Models\Artisan;
 use App\Models\Order;
 use App\Models\User;
 use Exception;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
 
 class ArtisansController extends Controller
@@ -49,7 +50,6 @@ class ArtisansController extends Controller
             );
         }
     }
-
     public function getNearestArtisanToUser(Request $request)
     {
         $userId = $request->input('user_id');
@@ -59,10 +59,12 @@ class ArtisansController extends Controller
             return response()->json(['error' => 'User not found'], 404);
         }
 
-        $artisans = Artisan::filters(['artisanWilaya' => $user->wilaya])->get(6);
+        $data = Artisan::with('user')->whereHas('user', function (Builder $query) use ($user) {
+            $query->where('wilaya', $user->wilaya);
+        })->take(6)->get();
 
         return response()->json([
-            'artisans' => $artisans
+            'artisans' => $data
         ]);
     }
 }
