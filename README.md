@@ -1,27 +1,27 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# Algeria Eats
+Algeria Eats est une plateforme innovante qui réunit les artisans, les livreurs et les consommateurs autour de produits artisanaux de qualité. Grâce à la TALL Stack (Tailwind CSS, Alpine.js, Laravel, Livewire), Algeria Eats offre une expérience utilisateur fluide et dynamique.
+
+## Fonctionnalités clés
+- Commande de produits artisanaux : Les consommateurs peuvent parcourir une variété de produits alimentaires artisanaux et passer des commandes en ligne.
+
+- Vente de produits : Les artisans peuvent créer des comptes et vendre leurs produits sur la plateforme, en atteignant ainsi une large audience.
+
+- Livraison efficace : Les livreurs peuvent s'inscrire sur la plateforme pour livrer les commandes aux consommateurs, assurant ainsi une livraison rapide et efficace.
+
+- Gestion des commandes : Algeria Eats propose une interface de gestion des commandes pour les artisans et les livreurs, facilitant ainsi le suivi et la gestion des livraisons.
 
 ## Comment lancer le projet
+- Ouvrir 2 terminaux : un pour npm et l'autre pour php artisan et composer.
 
-1 - Ouvrir 2 terminals 1 pour npm et l'autre pour php artisan et composer
+- Installer les dépendances npm : npm install.
 
--   Installer les depandances npm: `npm install`
--   Installer les depandances composer : `composer install`
--   lancer les migrations de la BDD : `php artisan migrate`
--   Lancer le projet dans les 2 terminals : `npm run dev` et `php artisan serve`
--   Vous pouvez faire un seed aprés la migration pour remplire la BDD avec des données random en executant la
-    commande: `php artisan db:seed --class="NomDeClasse"`
-    <u>Les Noms de Classes pour le seed</u> : **ArtisanSeeder, AdminSeeder, DeliveryManSeeder, ConsumerSeeder
-    ProductSeeder.**
--   injecter les villes et communes algériennes dans la base de données :
-    `php artisan db:seed --class="AnouarTouati\AlgerianCitiesLaravel\Database\Seeders\AlgerianCitiesSeeder"`
+- Installer les dépendances composer : composer install.
 
-ORDER STATUSES:
-not_started
-processing
-cancelled
-completed
+- Lancer les migrations de la base de données : php artisan migrate.
 
-Delivery STATUSES:
-pending
-delivering
-delivered
+- Lancer le projet dans les 2 terminaux : npm run dev et php artisan serve.
+
+- Remplir la base de données avec des données aléatoires : php artisan db:seed --class="NomDeClasse".
+
+- Les Noms de Classes pour le seed : ArtisanSeeder, AdminSeeder, DeliveryManSeeder, ConsumerSeeder, ProductSeeder.
+- Injecter les villes et communes algériennes dans la base de données : php artisan db:seed --class="AnouarTouati\AlgerianCitiesLaravel\Database\Seeders\AlgerianCitiesSeeder".
