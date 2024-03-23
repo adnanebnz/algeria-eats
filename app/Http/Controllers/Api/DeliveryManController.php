@@ -10,13 +10,14 @@ class DeliveryManController extends Controller
 {
     public function getDeliveries(Request $request)
     {
-        $deliveries =  Delivery::where(
+        $deliveries = Delivery::where(
             'deliveryMan_id',
             $request->input('user_id')
         )->get();
         $deliveries->load(['order', 'order.buyer']);
+
         return response()->json([
-            'deliveries' => $deliveries
+            'deliveries' => $deliveries,
         ]);
     }
 }

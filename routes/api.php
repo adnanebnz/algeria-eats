@@ -4,12 +4,12 @@ use App\Http\Controllers\Api\ArtisansController;
 use App\Http\Controllers\Api\Auth\LoginController;
 use App\Http\Controllers\Api\Auth\RegisterController;
 use App\Http\Controllers\Api\Auth\SocialAuthController;
+use App\Http\Controllers\Api\DeliveryManController;
 use App\Http\Controllers\Api\DeviceKeyController;
 use App\Http\Controllers\Api\NotificationsController;
 use App\Http\Controllers\Api\OrderController;
 use App\Http\Controllers\Api\ProductController;
 use App\Http\Controllers\Api\Profile\ProfileController;
-use App\Http\Controllers\Api\DeliveryManController;
 use Illuminate\Support\Facades\Route;
 
 Route::post('/auth/register/consumer', [RegisterController::class, 'registerConsumer']);
@@ -54,8 +54,6 @@ Route::put('/deliveryMan/status', [LoginController::class, 'setDeliveryManAvaila
 
 Route::post('/login/deliveryman', [LoginController::class, 'deliveryManLogin']);
 
-
-Route::get("/deliveries", [DeliveryManController::class, 'getDeliveries']);
-
+Route::get('/deliveries', [DeliveryManController::class, 'getDeliveries']);
 
 Route::get('/neirest-artisans', [ArtisansController::class, 'getNearestArtisanToUser']);

@@ -50,12 +50,13 @@ class ArtisansController extends Controller
             );
         }
     }
+
     public function getNearestArtisanToUser(Request $request)
     {
         $userId = $request->input('user_id');
         $user = User::find($userId);
 
-        if (!$user) {
+        if (! $user) {
             return response()->json(['error' => 'User not found'], 404);
         }
 
@@ -64,7 +65,7 @@ class ArtisansController extends Controller
         })->take(6)->get();
 
         return response()->json([
-            'artisans' => $data
+            'artisans' => $data,
         ]);
     }
 }
