@@ -23,7 +23,7 @@ class OrderController extends Controller
             //     'orders' => Order::where('buyer_id', auth()->user()->id)->with(['orderItems.product', 'artisan', 'delivery', 'delivery.deliveryMan'])->get(),
             // ]);
             return response()->json([
-                'orders' => Order::where('buyer_id', auth()->user()->id)->with(['orderItems.product', 'artisan', 'buyer'])->get(),
+                'orders' => Order::where('buyer_id', auth()->user()->id)->with(['orderItems.product', 'artisan', 'artisan.user', 'buyer'])->get(),
             ]);
         } catch (\Exception $e) {
             return response()->json(['error' => $e->getMessage()], 400);
