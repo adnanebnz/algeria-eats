@@ -12,13 +12,35 @@ use Illuminate\Http\Request;
 
 class ArtisansController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $artisans = Artisan::with(['user', 'products', 'reviews'])->get();
+        try {
+            $artisanWilaya = $request->input('artisanWilaya');
+            $artisanRating = $request->input('artisanRating');
+            $search = $request->input('search');
+            $typeService = $request->input('typeService');
 
-        return response()->json([
-            'artisans' => $artisans,
-        ]);
+            $filters = compact('search', 'artisanRating', 'artisanWilaya', 'typeService');
+
+            return response()->json([
+                'artisans' => Artisan::filters($filters)
+                    ->with(['user', 'products', 'reviews'])
+                    ->paginate(10),
+            ]);
+        } catch (Exception $e) {
+            return response()->json(['error' => $e->getMessage()], 400);
+        }
+    }
+
+    public function getAllArtisans()
+    {
+        try {
+            return response()->json([
+                'artisans' => Artisan::with(['user', 'products', 'reviews'])->get(),
+            ]);
+        } catch (Exception $e) {
+            return response()->json(['error' => $e->getMessage()], 400);
+        }
     }
 
     public function setOrderStatus(Request $request, Order $order)

@@ -57,3 +57,5 @@ Route::post('/login/deliveryman', [LoginController::class, 'deliveryManLogin']);
 Route::get('/deliveries', [DeliveryManController::class, 'getDeliveries']);
 
 Route::get('/neirest-artisans', [ArtisansController::class, 'getNearestArtisanToUser']);
+
+Route::get('/all-artisans', [ArtisansController::class, 'getAllArtisans']);
