@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use AnouarTouati\AlgerianCitiesLaravel\Facades\AlgerianCitiesFacade;
+use App\Events\DeliveryCreated;
 use App\Jobs\AcceptedDeliveryJob;
 use App\Mail\DeliveredPackage;
 use App\Models\Delivery;
@@ -314,6 +315,7 @@ class DeliveryManController extends Controller
             'status' => 'delivering',
             'deliveryMan_id' => auth()->user()->id,
         ]);
+        event(new DeliveryCreated($delivery->with(['order', 'order.buyer', 'order.artisan'])->first()));
 
         Alert::success('Succès', 'Livraison accepté !');
 

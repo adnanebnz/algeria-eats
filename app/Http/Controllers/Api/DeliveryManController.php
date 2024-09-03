@@ -14,7 +14,7 @@ class DeliveryManController extends Controller
             'deliveryMan_id',
             $request->input('user_id')
         )->get();
-        $deliveries->load(['order', 'order.buyer']);
+        $deliveries->load(['order', 'order.buyer', 'order.artisan.user']);
 
         return response()->json([
             'deliveries' => $deliveries,

@@ -43,6 +43,11 @@ class Artisan extends Authenticatable
         return $this->hasMany(UserReview::class, 'user_id');
     }
 
+    public function getFullName(): string
+    {
+        return $this->user->nom.' '.$this->user->prenom;
+    }
+
     public function scopeFilters(Builder $query, array $filters): void
     {
         $query->when($filters['artisanRating'] ?? null, function (
