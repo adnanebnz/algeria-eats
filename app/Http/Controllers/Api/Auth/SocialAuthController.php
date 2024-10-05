@@ -9,9 +9,7 @@ use Illuminate\Support\Facades\Auth;
 
 class SocialAuthController extends Controller
 {
-    public function __construct()
-    {
-    }
+    public function __construct() {}
 
     public function loginWithGoogle(Request $request)
     {

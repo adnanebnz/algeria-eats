@@ -52,7 +52,7 @@ class ArtisanController extends Controller
         return redirect()->route('artisan.index');
     }
 
-    protected function showFormProduct(Product $product = new Product()): View
+    protected function showFormProduct(Product $product = new Product): View
     {
         return view('artisan.products.form', [
             'product' => $product,

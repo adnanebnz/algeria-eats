@@ -31,17 +31,27 @@ class Handler extends ExceptionHandler
     public function render($request, Throwable $exception)
     {
         if ($this->isHttpException($exception)) {
-            if ($exception->getStatusCode() == 404) {
-                return response()->view('errors.404', [], 404);
+            $statusCode = $exception->getStatusCode();
+            $errorResponse = [
+                'error' => [
+                    'message' => $exception->getMessage(),
+                    'status_code' => $statusCode,
+                ],
+            ];
+
+            if ($request->wantsJson()) {
+                return response()->json($errorResponse, $statusCode);
             }
-            if ($exception->getStatusCode() == 500) {
-                return response()->view('errors.500', [], 500);
-            }
-            if ($exception->getStatusCode() == 403) {
-                return response()->view('errors.403', [], 403);
-            }
-            if ($exception->getStatusCode() == 401) {
-                return response()->view('errors.401', [], 401);
+
+            switch ($statusCode) {
+                case 404:
+                    return response()->view('errors.404', [], 404);
+                case 500:
+                    return response()->view('errors.500', [], 500);
+                case 403:
+                    return response()->view('errors.403', [], 403);
+                case 401:
+                    return response()->view('errors.401', [], 401);
             }
         }
 

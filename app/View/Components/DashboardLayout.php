@@ -16,8 +16,7 @@ class DashboardLayout extends Component
         public bool $isAdmin = false,
         public bool $isArtisan = false,
         public bool $isDeliver = false
-    ) {
-    }
+    ) {}
 
     /**
      * Get the view / contents that represent the component.
