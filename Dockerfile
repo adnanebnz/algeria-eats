@@ -7,7 +7,7 @@ WORKDIR /app
 COPY package.json package-lock.json* ./
 
 # Install dependencies
-RUN npm ci
+RUN npm install
 
 # Copy source files for building
 COPY resources ./resources
@@ -62,10 +62,11 @@ COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 WORKDIR /var/www/html
 
 # Copy composer files first for better caching
-COPY composer.json composer.lock ./
+COPY composer.json ./
+COPY composer.lock* ./
 
 # Install PHP dependencies
-RUN composer install --no-dev --no-scripts --no-autoloader --prefer-dist
+RUN composer install --no-dev --no-scripts --no-autoloader --prefer-dist --ignore-platform-reqs
 
 # Copy application code
 COPY . .
@@ -74,7 +75,7 @@ COPY . .
 COPY --from=node-builder /app/public/build ./public/build
 
 # Generate optimized autoloader
-RUN composer dump-autoload --optimize
+RUN composer dump-autoload --optimize --no-dev
 
 # Set permissions
 RUN chown -R www-data:www-data /var/www/html \
