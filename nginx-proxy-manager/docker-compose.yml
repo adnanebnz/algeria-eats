@@ -1,0 +1,51 @@
+version: '3.8'
+
+# ============================================
+# Nginx Proxy Manager - Global Reverse Proxy
+# ============================================
+# 
+# This is a STANDALONE setup - deploy once on your VPS
+# to manage ALL your applications (Algeria Eats, etc.)
+# 
+# Recommended location: /opt/nginx-proxy-manager/
+#
+# Quick Start:
+#   1. scp this folder to your VPS: /opt/nginx-proxy-manager/
+#   2. cd /opt/nginx-proxy-manager && docker-compose up -d
+#   3. Access: http://your-vps-ip:81
+#   4. Login: admin@example.com / changeme
+#   5. Change password immediately!
+#
+# ============================================
+
+services:
+  npm:
+    image: 'jc21/nginx-proxy-manager:latest'
+    container_name: nginx-proxy-manager
+    restart: always
+    ports:
+      # HTTP - redirect to HTTPS
+      - '80:80'
+      # HTTPS - main traffic
+      - '443:443'
+      # Admin Panel
+      - '81:81'
+    volumes:
+      - ./data:/data
+      - ./letsencrypt:/etc/letsencrypt
+    environment:
+      DISABLE_IPV6: 'true'
+    networks:
+      - npm-proxy
+    healthcheck:
+      test: ["CMD", "/bin/check-health"]
+      interval: 10s
+      timeout: 3s
+      retries: 3
+
+networks:
+  # This network is shared with all your apps
+  # Other docker-compose files will connect to this network
+  npm-proxy:
+    name: npm-proxy
+    driver: bridge

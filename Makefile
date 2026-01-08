@@ -111,9 +111,21 @@ npm:
 tools:
 	docker-compose --profile tools up -d
 
-# Production deployment
+# Production deployment (standalone)
 prod:
 	docker-compose -f docker-compose.yml -f docker-compose.prod.yml up -d
+
+# Production with Nginx Proxy Manager
+prod-npm:
+	docker-compose -f docker-compose.npm.yml up -d --build
+
+# Stop NPM version
+down-npm:
+	docker-compose -f docker-compose.npm.yml down
+
+# Logs for NPM version
+logs-npm:
+	docker-compose -f docker-compose.npm.yml logs -f
 
 # Initial setup
 setup:
