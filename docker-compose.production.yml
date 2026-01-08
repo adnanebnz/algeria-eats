@@ -1,0 +1,126 @@
+version: '3.8'
+
+# Production version for Algeria Eats with NPM
+# No source code volumes - uses code baked into images
+
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: php-base
+    container_name: algeria-eats-app
+    restart: always
+    working_dir: /var/www/html
+    # Only mount storage and cache - not source code
+    volumes:
+      - storage-data:/var/www/html/storage
+      - cache-data:/var/www/html/bootstrap/cache
+    networks:
+      - algeria-eats-internal
+    depends_on:
+      - db
+      - redis
+    environment:
+      - DB_HOST=db
+      - REDIS_HOST=redis
+
+  nginx:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: nginx
+    container_name: algeria-eats-nginx
+    restart: always
+    networks:
+      - algeria-eats-internal
+      - npm-proxy
+    depends_on:
+      - app
+
+  db:
+    image: mysql:8.0
+    container_name: algeria-eats-db
+    restart: always
+    environment:
+      MYSQL_DATABASE: ${DB_DATABASE:-algeria_eats}
+      MYSQL_USER: ${DB_USERNAME:-algeria_eats}
+      MYSQL_PASSWORD: ${DB_PASSWORD:-secret}
+      MYSQL_ROOT_PASSWORD: ${DB_ROOT_PASSWORD:-rootsecret}
+    volumes:
+      - db-data:/var/lib/mysql
+    networks:
+      - algeria-eats-internal
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  redis:
+    image: redis:alpine
+    container_name: algeria-eats-redis
+    restart: always
+    volumes:
+      - redis-data:/data
+    networks:
+      - algeria-eats-internal
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  queue:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: php-base
+    container_name: algeria-eats-queue
+    restart: always
+    working_dir: /var/www/html
+    command: php artisan queue:work --sleep=3 --tries=3 --max-time=3600
+    volumes:
+      - storage-data:/var/www/html/storage
+    networks:
+      - algeria-eats-internal
+    depends_on:
+      - app
+      - db
+      - redis
+    environment:
+      - DB_HOST=db
+      - REDIS_HOST=redis
+
+  scheduler:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: php-base
+    container_name: algeria-eats-scheduler
+    restart: always
+    working_dir: /var/www/html
+    command: sh -c "while true; do php artisan schedule:run --verbose --no-interaction & sleep 60; done"
+    volumes:
+      - storage-data:/var/www/html/storage
+    networks:
+      - algeria-eats-internal
+    depends_on:
+      - app
+      - db
+      - redis
+    environment:
+      - DB_HOST=db
+      - REDIS_HOST=redis
+
+networks:
+  algeria-eats-internal:
+    driver: bridge
+  npm-proxy:
+    external: true
+
+volumes:
+  db-data:
+  redis-data:
+  storage-data:
+  cache-data:
