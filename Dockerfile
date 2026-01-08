@@ -81,7 +81,7 @@ RUN composer dump-autoload --optimize --no-dev
 RUN if [ ! -f .env ]; then cp .env.example .env; fi
 
 # Publish Livewire assets
-RUN php artisan livewire:publish --assets --force
+RUN php artisan livewire:publish --assets
 
 # Set permissions
 RUN chown -R www-data:www-data /var/www/html \
