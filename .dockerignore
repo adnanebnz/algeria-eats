@@ -1,0 +1,56 @@
+# Git
+.git
+.gitignore
+.gitattributes
+
+# Docker
+docker-compose*.yml
+Dockerfile
+.dockerignore
+
+# Node
+node_modules
+npm-debug.log
+yarn-error.log
+
+# IDE and Editors
+.idea
+.vscode
+*.sublime-project
+*.sublime-workspace
+.phpstorm.meta.php
+_ide_helper.php
+
+# Laravel specific
+storage/logs/*
+storage/framework/cache/*
+storage/framework/sessions/*
+storage/framework/views/*
+bootstrap/cache/*
+!storage/logs/.gitignore
+!storage/framework/cache/.gitignore
+!storage/framework/sessions/.gitignore
+!storage/framework/views/.gitignore
+!bootstrap/cache/.gitignore
+
+# Testing
+.phpunit.result.cache
+phpunit.xml
+tests/
+
+# Environment files
+.env
+.env.backup
+.env.*.local
+
+# Documentation
+README.md
+docs/
+*.md
+
+# Misc
+.DS_Store
+Thumbs.db
+*.log
+*.swp
+*.swo
