@@ -80,6 +80,9 @@ RUN composer dump-autoload --optimize --no-dev
 # Create .env from example if it doesn't exist
 RUN if [ ! -f .env ]; then cp .env.example .env; fi
 
+# Publish Livewire assets
+RUN php artisan livewire:publish --assets --force
+
 # Set permissions
 RUN chown -R www-data:www-data /var/www/html \
     && chmod -R 755 /var/www/html/storage \
