@@ -77,6 +77,9 @@ COPY --from=node-builder /app/public/build ./public/build
 # Generate optimized autoloader
 RUN composer dump-autoload --optimize --no-dev
 
+# Create .env from example if it doesn't exist
+RUN if [ ! -f .env ]; then cp .env.example .env; fi
+
 # Set permissions
 RUN chown -R www-data:www-data /var/www/html \
     && chmod -R 755 /var/www/html/storage \
